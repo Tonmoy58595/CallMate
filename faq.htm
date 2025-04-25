@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CallMate - FAQ</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .faq-container {
+      background-color: #2b2b3c;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .faq-container h2 {
+      color: #FFBB33;
+      margin-bottom: 40px;
+      font-size: 28px;
+    }
+
+    .faq-item {
+      background-color: #333333;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .faq-item:hover {
+      background-color: #FFBB33;
+      color: #333;
+    }
+
+    .faq-question {
+      font-size: 20px;
+      color: #FFF;
+      margin-bottom: 10px;
+    }
+
+    .faq-answer {
+      font-size: 16px;
+      color: #e0e0e0;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      padding: 10px 20px;
+      background-color: #FFBB33;
+      color: #333;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #e8a400;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-question">What is CallMate?</div>
+      <div class="faq-answer">
+        CallMate is an advanced calling and messaging platform offering reliable services with great features to manage your calls and contacts.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">How can I top up my balance?</div>
+      <div class="faq-answer">
+        You can top up your balance using mobile payment methods like Bkash, Rocket, Nagad, and Upay. Simply visit the top-up page to add funds.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">How can I change my account settings?</div>
+      <div class="faq-answer">
+        You can update your account settings by navigating to the Settings page where you can update your profile, notifications, and other preferences.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">What should I do if I forgot my password?</div>
+      <div class="faq-answer">
+        If you've forgotten your password, you can use the "Forgot Password" option on the login page to reset it via OTP (One-Time Password).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Can I contact customer support?</div>
+      <div class="faq-answer">
+        Yes, you can contact our support team through the Contact Us page. We'll get back to you as soon as possible.
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goBackToDashboard()">Back to Dashboard</button>
+  </div>
+
+  <script>
+    // Toggle the FAQ answer on click
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+
+    // Back to Dashboard button
+    function goBackToDashboard() {
+      window.location.href = "CallMate Main Dashboard.html";  // Replace with your actual dashboard page URL
+    }
+  </script>
+
+</body>
+</html>

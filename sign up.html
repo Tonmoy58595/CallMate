@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CallMate Sign Up</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e2f;
+      color: #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .signup-container {
+      background: #2b2b3c;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .signup-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #FFBB33;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #3c3c50;
+      color: #fff;
+    }
+
+    .form-group input::placeholder {
+      color: #bbb;
+    }
+
+    .signup-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #FFBB33;
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-btn:hover {
+      background-color: #e0a800;
+    }
+
+    .footer-text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .footer-text a {
+      color: #00BFFF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .valid-phone {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      font-size: 18px;
+      color: green;
+      visibility: hidden;
+    }
+
+    .invalid-phone {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      font-size: 18px;
+      color: red;
+      visibility: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-container">
+    <h2>Create Account</h2>
+    
+    <div class="form-group" id="phoneGroup">
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="01XXXXXXXXX" maxlength="11" required />
+      <span id="validCheck" class="valid-phone">✔</span>
+      <span id="invalidCheck" class="invalid-phone">✘</span>
+    </div>
+
+    <div id="recaptcha-container"></div>
+
+    <button class="signup-btn" id="verifyBtn" onclick="sendVerification()">Verify with Phone Number</button>
+
+    <div class="footer-text">
+      Already have an account? <a href="login page.html">Login</a>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js"></script>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDhh0SEm9h4wSDyCVRO5rMKNTjukJ23X8U",
+      authDomain: "callmate-923a2.firebaseapp.com",
+      projectId: "callmate-923a2",
+      storageBucket: "callmate-923a2.firebasestorage.app",
+      messagingSenderId: "118120616225",
+      appId: "1:118120616225:web:df34992252f987412e2e60",
+      measurementId: "G-4RML0LKSM4"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    // reCAPTCHA setup
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      size: 'invisible',
+      callback: function(response) {
+        // reCAPTCHA solved
+      }
+    });
+
+    function sendVerification() {
+      const phoneInput = document.getElementById("phone");
+      const phone = phoneInput.value.trim();
+      const validCheck = document.getElementById("validCheck");
+      const invalidCheck = document.getElementById("invalidCheck");
+      const phoneRegex = /^01[0-9]{9}$/;
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid Bangladeshi phone number (11 digits, starting with 01).");
+        validCheck.style.visibility = "hidden";
+        invalidCheck.style.visibility = "visible";
+        return;
+      }
+
+      validCheck.style.visibility = "visible";
+      invalidCheck.style.visibility = "hidden";
+
+      const fullPhone = "+88" + phone;
+
+      // If phone number is valid, move to OTP page
+      window.location.href = "otp_verification.html?phone=" + phone; // Pass phone number to the next page
+    }
+  </script>
+
+</body>
+</html>

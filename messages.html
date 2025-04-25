@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CallMate Message Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 10%; /* 10% width for the sidebar */
+      background: #2c2f48;
+      padding: 20px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+      color: #FFBB33;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 2px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background: #3d4063;
+    }
+
+    /* Main content (Right Side) */
+    .main {
+      margin-left: 10%; /* Adjust to make space for the sidebar */
+      width: 90%; /* The remaining 90% width */
+      display: flex;
+      flex-direction: row;
+      background-color: white;
+      padding: 20px;
+    }
+
+    /* Contacts Section */
+
+    .contacts {
+  width: 30%; /* Adjusting for your requirements */
+  max-height: 500px;
+  overflow-y: scroll;
+  background-color: #f4f4f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding-right: 100px;
+  margin-left: 50px; /* 50px space from the left */
+  margin-right: 20px; /* Space between contacts and messages */
+  display: flex;    
+  flex-direction: column;
+}
+
+.contact {
+      padding: 10px;
+      background-color: #eaeaea;
+      margin-bottom: 10px;
+      right: 300px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact:hover {
+      background-color: #d3d3d3;
+    }
+
+    /* Message Page Section */
+    .message-page {
+      width: 65%; /* Remaining space for messages */
+      background-color: #f4f4f9;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .message-page h2 {
+      color: #333;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .message-box {
+      flex: 1;
+      overflow-y: scroll;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .message-box p {
+      color: #777;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Message Input Section */
+    .message-input {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-radius: 6px;
+      background-color: #f4f4f9;
+    }
+
+    .message-input input {
+      width: 85%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .message-input button {
+      background-color: #FFBB33;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .message-input button:hover {
+      background-color: #ff9a00;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    
+    <a href="CallMate Main Dashboard.html"><h2>CallMate</h2></a>
+    <a href="call.html">Call</a>
+    <a href="contact.html">Contacts</a>
+    <a href="messages.html">Messages</a>
+    <a href="profile.html">Profile</a>
+    <a href="setting.html">Settings</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <!-- Contacts Section -->
+    <div class="contacts">
+      <div class="contact" onclick="showMessages('John')">John Doe</div>
+      <div class="contact" onclick="showMessages('Jane')">Jane Smith</div>
+      <div class="contact" onclick="showMessages('Alex')">Alex Johnson</div>
+    </div>
+
+    <!-- Message Page Section -->
+    <div class="message-page" id="messagePage">
+      <h2>Select a contact to see messages</h2>
+
+      <!-- Message Box -->
+      <div class="message-box" id="messageBox">
+        <p>Click on a contact to view their messages</p>
+      </div>
+
+      <!-- Message Input -->
+      <div class="message-input">
+        <input type="text" placeholder="Type a message..." id="messageInput" />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mock Data for Messages
+    const messages = {
+      John: [
+        { text: "Hey, how are you?", sender: "John" },
+        { text: "I'm good, how about you?", sender: "You" },
+      ],
+      Jane: [
+        { text: "Hello!", sender: "Jane" },
+        { text: "Hi, what's up?", sender: "You" },
+      ],
+      Alex: [
+        { text: "Got the files?", sender: "Alex" },
+        { text: "Yes, just sent them over.", sender: "You" },
+      ],
+    };
+
+    function showMessages(contact) {
+      const messageBox = document.getElementById('messageBox');
+      const messagePage = document.getElementById('messagePage');
+      const contactMessages = messages[contact];
+
+      // Update message page title
+      messagePage.querySelector('h2').innerText = `Messages with ${contact}`;
+
+      // Clear existing messages
+      messageBox.innerHTML = '';
+
+      // Add contact's messages
+      contactMessages.forEach(msg => {
+        const message = document.createElement('p');
+        message.textContent = `${msg.sender}: ${msg.text}`;
+        messageBox.appendChild(message);
+      });
+    }
+
+    function sendMessage() {
+      const messageInput = document.getElementById('messageInput');
+      const message = messageInput.value.trim();
+      if (message) {
+        const contact = 'John'; // hardcoded for now
+        const newMessage = { text: message, sender: 'You' };
+        messages[contact].push(newMessage); // Add to John's messages for now
+        showMessages(contact); // Update message box for John
+        messageInput.value = ''; // Clear the input
+      }
+    }
+  </script>
+
+</body>
+</html>

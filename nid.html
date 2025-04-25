@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CallMate - NID Verification</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #101010;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #FFBB33;
+      font-size: 36px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .verification-container {
+      width: 100%;
+      max-width: 600px;
+      background-color: #1e1e2f;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .input-group label {
+      color: #FFBB33;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #2b2b3c;
+      color: #fff;
+    }
+
+    .input-group input::placeholder {
+      color: #bbb;
+    }
+
+    .upload-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #FFBB33;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .upload-btn:hover {
+      background-color: #e67e22;
+    }
+
+    .verify-btn {
+      width: 100%;
+      padding: 15px;
+      background-color: #1abc9c;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .verify-btn:hover {
+      background-color: #16a085;
+    }
+
+    .result {
+      display: none;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .result img {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+
+    .nid-img-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .nid-img-container img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .back-link {
+      margin-top: 20px;
+      color: #FFBB33;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      background-color: #333333;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: #FFBB33;
+      color: #333333;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>NID Verification</h1>
+
+  <div class="verification-container">
+    <!-- Input NID Number -->
+    <div class="input-group">
+      <label for="nid-number">Enter NID Number</label>
+      <input type="text" id="nid-number" placeholder="Enter your NID number" maxlength="17" required />
+    </div>
+
+    <!-- NID Image Upload -->
+    <div class="input-group">
+      <label for="nid-image">Upload NID Image</label>
+      <input type="file" id="nid-image" accept="image/*" required />
+      <img id="nid-preview" src="#" alt="NID Preview" style="display:none; margin-top: 10px;" />
+    </div>
+
+    <!-- Front Picture Upload -->
+    <div class="input-group">
+      <label for="front-image">Upload Front Picture</label>
+      <input type="file" id="front-image" accept="image/*" required />
+      <img id="front-preview" src="#" alt="Front Picture Preview" style="display:none; margin-top: 10px;" />
+    </div>
+
+    <!-- Verify Button -->
+    <button class="verify-btn" onclick="verifyNID()">Verify NID</button>
+
+    <!-- Verification Result -->
+    <div class="result" id="result-box">
+      <h2>NID Verification Result</h2>
+      <p id="result-message"></p>
+      <div class="nid-img-container" id="nid-image-result"></div>
+      <div class="nid-img-container" id="front-image-result"></div>
+    </div>
+  </div>
+
+  <a class="back-link" href="CallMate Main Dashboard.html">← Back to Dashboard</a>
+
+  <script>
+    // Preview NID Image
+    document.getElementById("nid-image").addEventListener("change", function(e) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        const preview = document.getElementById("nid-preview");
+        preview.src = reader.result;
+        preview.style.display = "block";
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    // Preview Front Picture
+    document.getElementById("front-image").addEventListener("change", function(e) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        const preview = document.getElementById("front-preview");
+        preview.src = reader.result;
+        preview.style.display = "block";
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    // Verify NID and display result
+    function verifyNID() {
+      const nid = document.getElementById("nid-number").value.trim();
+      const nidImage = document.getElementById("nid-image").files[0];
+      const frontImage = document.getElementById("front-image").files[0];
+      const resultBox = document.getElementById("result-box");
+      const resultMessage = document.getElementById("result-message");
+
+      // Simple validation check for files
+      if (!nidImage || !frontImage) {
+        alert("Please upload both NID and Front Image.");
+        return;
+      }
+
+      // Simulate validation process (replace with actual validation)
+      if (nid === "123456789012345" || nid === "987654321098765") {
+        resultBox.style.display = "block";
+        resultMessage.innerText = `NID ${nid} is valid. User verified successfully!`;
+
+        // Display uploaded images
+        const nidImageResult = document.getElementById("nid-image-result");
+        const frontImageResult = document.getElementById("front-image-result");
+        
+        nidImageResult.innerHTML = `<h3>NID Image:</h3><img src="${URL.createObjectURL(nidImage)}" alt="NID Image" />`;
+        frontImageResult.innerHTML = `<h3>Front Picture:</h3><img src="${URL.createObjectURL(frontImage)}" alt="Front Picture" />`;
+
+        resultBox.style.backgroundColor = "#2b2b3c"; // Valid result
+      } else {
+        resultBox.style.display = "block";
+        resultMessage.innerText = `NID ${nid} is invalid. Please check and try again.`;
+        resultBox.style.backgroundColor = "#e74c3c"; // Invalid result
+      }
+    }
+  </script>
+
+</body>
+</html>

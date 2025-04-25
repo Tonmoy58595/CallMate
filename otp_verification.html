@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OTP Verification</title>
+  <style>
+    body {
+      background: #1e1e2f;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #2b2b3c;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: none;
+    }
+    button {
+      background: #FFBB33;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+    }
+    .resend-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .resend-btn {
+      background: transparent;
+      color: #00BFFF;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .timer {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter OTP</h2>
+    <input type="text" id="otp" placeholder="Enter OTP" maxlength="6" />
+    <button onclick="verifyOTP()">Confirm OTP</button>
+
+    <div class="resend-section">
+      <button class="resend-btn" onclick="resendOTP()" id="resendBtn">Resend OTP</button>
+      <div class="timer" id="timerText"></div>
+    </div>
+  </div>
+
+  <script>
+    function verifyOTP() {
+      const otp = document.getElementById('otp').value.trim();
+      if (otp === "123456") {
+        window.location.href = "setup-password.html";
+      } else {
+        alert("Invalid OTP. Please try again.");
+      }
+    }
+
+    function resendOTP() {
+      alert("OTP resent to your number!");
+      startTimer();
+    }
+
+    function startTimer() {
+      const timerText = document.getElementById("timerText");
+      let seconds = 30;
+
+      timerText.textContent = `Wait ${seconds} seconds`;
+      const interval = setInterval(() => {
+        seconds--;
+        timerText.textContent = `Wait ${seconds} seconds`;
+        if (seconds <= 0) {
+          clearInterval(interval);
+          timerText.textContent = '';
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

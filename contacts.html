@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CallMate - Contact Us</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .contact-container {
+      background-color: #2b2b3c;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .contact-container h2 {
+      color: #FFBB33;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 14px 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #3c3c50;
+      color: #fff;
+    }
+
+    .form-group input::placeholder, .form-group textarea::placeholder {
+      color: #bbb;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      height: 150px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #1abc9c;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #16a085;
+    }
+
+    .footer-text {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .footer-text a {
+      color: #00BFFF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #FFBB33;
+      color: #333;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #e8a400;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Your Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="message">Your Message</label>
+      <textarea id="message" placeholder="Enter your message" required></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="submitContactForm()">Submit</button>
+
+    <div class="footer-text">
+      <p>If you have any issues or inquiries, feel free to reach out to us at <a href="mailto:troy58595@gmail.com">troy58595@gmail.com</a></p>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <button class="back-btn" onclick="goBackToDashboard()">Back to Dashboard</button>
+  </div>
+
+  <script>
+    function submitContactForm() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      alert(`Thank you, ${name}. Your message has been submitted successfully. We'll get back to you at ${email}.`);
+    }
+
+    function goBackToDashboard() {
+      window.location.href = "CallMate Main Dashboard.html";  // Replace with your actual dashboard page URL
+    }
+  </script>
+
+</body>
+</html>

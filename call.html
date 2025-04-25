@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CallMate Call Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e1e2f;
+      color: white;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #2c2f48;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+    }
+
+    .sidebar h2 {
+      color: #FFBB33;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      width: 100%;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .sidebar a:hover {
+      background: #3d4063;
+    }
+
+    /* Main Area */
+    .main {
+      flex: 1;
+      padding: 30px;
+      position: relative;
+    }
+
+    .recent-calls {
+      max-width: 500px;
+      margin: auto;
+      margin-top: 40px;
+    }
+
+    .recent-call {
+      background: #2b2b3c;
+      padding: 12px 20px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .recent-call span {
+      font-size: 18px;
+    }
+
+    .call-icon {
+      background: white;
+      color: black;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Dialpad Icon - Bottom Right Corner */
+    .dialpad-icon {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      font-size: 26px;
+      cursor: pointer;
+      background: #ffbb33;
+      padding: 14px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ffbb33;
+      transition: transform 0.2s ease;
+    }
+
+    .dialpad-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Dialpad Design */
+    .dialpad {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 240px; /* Slightly wider to accommodate number box */
+      background: #2c2f48;
+      border-radius: 10px;
+      padding: 20px 15px 10px;
+      display: none;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Input Box */
+    .dialpad input {
+      width: 100%;
+      padding: 12px;
+      font-size: 20px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 6px;
+      background-color: #44476a;
+      color: white;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    /* Cross button position */
+    .dialpad input + span {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #e74c3c;
+      font-size: 20px;
+    }
+
+    /* Dialpad Grid */
+    .dialpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .dialpad-grid button {
+      padding: 15px;
+      font-size: 18px;
+      background: #44476a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .dialpad-grid button:hover {
+      background: #5a5d84;
+    }
+
+    /* Call Button */
+    .dial-call-btn {
+      margin-top: 10px;
+      background: #00c37a;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Title for recent calls section */
+    .recent-calls-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #FFBB33;
+      text-align: center;
+    }
+
+    /* Highlight number when added */
+    .highlighted {
+      color: #FFBB33;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="CallMate Main Dashboard.html"><h2>CallMate</h2></a>
+    
+    <a href="call.html">Call</a>
+    <a href="contact.html">Contact</a>
+    <a href="messages.html">Message</a>
+    <a href="profile.html">Profile</a>
+    <a href="setting.html">Settings</a>
+  </div>
+
+  <!-- Main Section -->
+  <div class="main">
+    <!-- Recent Calls -->
+    <div class="recent-calls">
+      <div class="recent-calls-title">Recent Calls</div>
+      <div id="recentCalls">
+        <!-- Call entries will appear here -->
+      </div>
+    </div>
+
+    <!-- Dialpad -->
+    <div class="dialpad" id="dialpad">
+      <div style="position: relative;">
+        <input type="text" id="numberInput" placeholder="Type number..." oninput="filterMatches()" maxlength="11" />
+        <span onclick="clearInput()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; font-size: 20px; color: #e74c3c;">❌</span>
+      </div>
+
+      <div class="dialpad-grid">
+        <button onclick="addDigit('1')">1</button>
+        <button onclick="addDigit('2')">2</button>
+        <button onclick="addDigit('3')">3</button>
+        <button onclick="addDigit('4')">4</button>
+        <button onclick="addDigit('5')">5</button>
+        <button onclick="addDigit('6')">6</button>
+        <button onclick="addDigit('7')">7</button>
+        <button onclick="addDigit('8')">8</button>
+        <button onclick="addDigit('9')">9</button>
+        <button onclick="addDigit('*')">*</button>
+        <button onclick="addDigit('0')">0</button>
+        <button onclick="addDigit('#')">#</button>
+      </div>
+      <button class="dial-call-btn" onclick="makeCall()">📞 Call</button>
+    </div>
+
+    <!-- Dialpad Icon -->
+    <div class="dialpad-icon" onclick="toggleDialpad()">☎️</div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const recentCalls = document.getElementById('recentCalls');
+    const dialpad = document.getElementById('dialpad');
+    const numberInput = document.getElementById('numberInput');
+    let callHistory = [];
+
+    function toggleDialpad() {
+      dialpad.style.display = dialpad.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addDigit(d) {
+      numberInput.value += d;
+      highlightNumber();
+      filterMatches();
+    }
+
+    function makeCall() {
+      const number = numberInput.value.trim();
+      if (/^01[0-9]{9}$/.test(number)) {
+        callHistory.unshift(number);
+        updateCallList();
+        alert("Calling " + number + "...");
+        numberInput.value = '';
+      } else {
+        alert("Please enter a valid 11-digit BD number (starts with 01)");
+      }
+    }
+
+    function updateCallList() {
+      recentCalls.innerHTML = '';
+      callHistory.forEach(num => {
+        const div = document.createElement('div');
+        div.className = 'recent-call';
+        div.innerHTML = `
+          <span>${num}</span>
+          <span class="call-icon" onclick="call('${num}')">📞</span>
+        `;
+        recentCalls.appendChild(div);
+      });
+    }
+
+    function call(num) {
+      alert("Calling " + num + "...");
+    }
+
+    function clearInput() {
+      numberInput.value = '';
+      highlightNumber();
+    }
+
+    function filterMatches() {
+      const input = numberInput.value;
+      if (input.length >= 3) {
+        const match = callHistory.find(n => n.startsWith(input));
+        if (match) {
+          numberInput.value = match;
+          highlightNumber();
+        }
+      }
+    }
+
+    function highlightNumber() {
+      const input = numberInput.value;
+      if (input) {
+        numberInput.classList.add('highlighted');
+      } else {
+        numberInput.classList.remove('highlighted');
+      }
+    }
+  </script>
+
+</body>
+</html>

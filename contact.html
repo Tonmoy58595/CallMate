@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CallMate Contacts</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e1e2f;
+      color: white;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #2c2f48;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+    }
+
+    .sidebar h2 {
+      color: #FFBB33;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      width: 100%;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .sidebar a:hover {
+      background: #3d4063;
+    }
+
+    /* Main Area */
+    .main {
+      flex: 1;
+      padding: 30px;
+      position: relative;
+    }
+
+    .contacts {
+      max-width: 600px;
+      margin: auto;
+      margin-top: 40px;
+    }
+
+    .contact-card {
+      background: #2b2b3c;
+      padding: 12px 20px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .contact-card span {
+      font-size: 18px;
+    }
+
+    .call-icon {
+      background: white;
+      color: black;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Search Box */
+    .search-box {
+      background: #44476a;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      background: transparent;
+      color: white;
+      border: none;
+      outline: none;
+    }
+
+    .search-box input::placeholder {
+      color: #b0b0b0;
+    }
+
+    /* Title for contacts section */
+    .contacts-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #FFBB33;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    
+    <a href="CallMate Main Dashboard.html"><h2>CallMate</h2></a>
+    <a href="call.html">Call</a>
+    <a href="contact.html">Contact</a>
+    <a href="messages.html">Message</a>
+    <a href="profile.html">Profile</a>
+    <a href="setting.html">Settings</a>
+  </div>
+
+  <!-- Main Section -->
+  <div class="main">
+    <div class="contacts">
+      <div class="contacts-title">Contacts</div>
+
+      <!-- Search Box -->
+      <div class="search-box">
+        <input type="text" id="contactSearch" placeholder="Search contacts..." oninput="searchContacts()" />
+      </div>
+
+      <!-- Contact List -->
+      <div id="contactList">
+        <div class="contact-card">
+          <span>John Doe</span>
+          <span class="call-icon" onclick="makeCall('John Doe', '01234567890')">📞</span>
+        </div>
+        <div class="contact-card">
+          <span>Jane Smith</span>
+          <span class="call-icon" onclick="makeCall('Jane Smith', '09876543210')">📞</span>
+        </div>
+        <div class="contact-card">
+          <span>Mike Johnson</span>
+          <span class="call-icon" onclick="makeCall('Mike Johnson', '01798765432')">📞</span>
+        </div>
+        <!-- Add more contacts here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const contactList = document.getElementById('contactList');
+    const contactSearch = document.getElementById('contactSearch');
+
+    // Function to make a call (for demo purposes, alerting the number)
+    function makeCall(name, number) {
+      alert(`Calling ${name} at ${number}...`);
+    }
+
+    // Search Functionality
+    function searchContacts() {
+      const query = contactSearch.value.toLowerCase();
+      const contacts = document.querySelectorAll('.contact-card');
+      
+      contacts.forEach(contact => {
+        const name = contact.querySelector('span').textContent.toLowerCase();
+        if (name.includes(query)) {
+          contact.style.display = '';
+        } else {
+          contact.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

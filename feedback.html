@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CallMate - Feedback</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .feedback-container {
+      background-color: #2b2b3c;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 600px;
+      overflow-y: auto;
+      height: 80vh;
+    }
+
+    .feedback-container h2 {
+      color: #FFBB33;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 18px;
+      color: #FFF;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      background-color: #333;
+      color: #FFF;
+    }
+
+    .form-group input::placeholder, .form-group textarea::placeholder {
+      color: #bbb;
+    }
+
+    .form-group textarea {
+      height: 150px;
+      resize: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #FFBB33;
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #e8a400;
+    }
+
+    .feedback-list {
+      margin-top: 30px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .feedback-item {
+      background-color: #333;
+      color: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feedback-item .date {
+      font-size: 12px;
+      color: #bbb;
+      text-align: right;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-btn a {
+      color: #FFBB33;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .back-btn a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="feedback-container">
+    <h2>We'd Love Your Feedback!</h2>
+    
+    <form id="feedback-form">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="feedback">Your Feedback</label>
+        <textarea id="feedback" placeholder="Write your feedback here..." required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Feedback</button>
+    </form>
+
+    <div class="feedback-list" id="feedback-list"></div>
+
+    <div class="back-btn">
+      <a href="CallMate Main Dashboard.html">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    // Function to format the current date and time
+    function getCurrentDateTime() {
+      const now = new Date();
+      const day = now.getDate().toString().padStart(2, '0');
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const year = now.getFullYear();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    }
+
+    // Feedback submit function
+    document.getElementById("feedback-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Get form data
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const feedback = document.getElementById("feedback").value.trim();
+      const dateTime = getCurrentDateTime();
+
+      // Create feedback item
+      const feedbackItem = document.createElement("div");
+      feedbackItem.classList.add("feedback-item");
+
+      // Create feedback content
+      feedbackItem.innerHTML = `
+        <strong>${name}</strong> (${email})<br>
+        <p>${feedback}</p>
+        <div class="date">${dateTime}</div>
+      `;
+
+      // Add feedback item to the list (in reverse order, so newest is on top)
+      const feedbackList = document.getElementById("feedback-list");
+      feedbackList.insertBefore(feedbackItem, feedbackList.firstChild);
+
+      // Clear the form
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("feedback").value = "";
+    });
+  </script>
+
+</body>
+</html>

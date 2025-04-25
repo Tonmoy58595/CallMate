@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CallMate - Help</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #FFBB33;
+      font-size: 32px;
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+
+    .help-container {
+      width: 100%;
+      max-width: 800px;
+      padding: 40px;
+      background-color: #2b2b3c;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+
+    .help-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #333333;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .help-section h2 {
+      color: #4A90E2;
+      font-size: 24px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #4A90E2;
+      padding-bottom: 5px;
+    }
+
+    .help-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .help-section ul li {
+      font-size: 16px;
+      color: #bbb;
+      margin-bottom: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .help-section ul li:hover {
+      color: #FFBB33;
+    }
+
+    .help-section ul li a {
+      color: #FFBB33;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .help-section ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .back-link {
+      margin-top: 30px;
+      color: #FFBB33;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      background-color: #333333;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: #FFBB33;
+      color: #333333;
+    }
+
+    @media (max-width: 768px) {
+      .help-container {
+        padding: 30px 20px;
+      }
+
+      .help-section h2 {
+        font-size: 20px;
+      }
+
+      .back-link {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Help & Support</h1>
+
+  <div class="help-container">
+    <div class="help-section">
+      <h2>Getting Started</h2>
+      <ul>
+        <li><a href="sign up.html">How to sign up</a></li>
+        <li><a href="login page.html">How to log in</a></li>
+        <li><a href="profile.html">How to update your profile</a></li>
+        <li><a href="setting.html">How to change settings</a></li>
+      </ul>
+    </div>
+
+    <div class="help-section">
+      <h2>Account & Billing</h2>
+      <ul>
+        <li><a href="balance.html">How to check balance</a></li>
+        <li><a href="topup.html">How to top-up your account</a></li>
+        <li><a href="plans.html">View subscription plans</a></li>
+      </ul>
+    </div>
+
+    <div class="help-section">
+      <h2>General Questions</h2>
+      <ul>
+        <li><a href="faq.html">Frequently Asked Questions</a></li>
+        <li><a href="contacts.html">How to contact support</a></li>
+        <li><a href="feedback.html">How to provide feedback</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="back-link" href="CallMate Main Dashboard.html">← Back to Dashboard</a>
+
+</body>
+</html>
